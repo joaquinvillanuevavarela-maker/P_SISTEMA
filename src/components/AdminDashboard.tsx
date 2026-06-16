@@ -1055,7 +1055,12 @@ export default function AdminDashboard() {
       studentName = newStudentName.trim();
       studentEmail = newStudentEmail.trim().toLowerCase();
 
-      const temporaryPassword = cleanRut.replace('-', '').toLowerCase();
+      const rutSinPuntos = cleanRut.replace(/\./g, '');
+      const rutAntesGuion = rutSinPuntos.includes('-')
+        ? rutSinPuntos.split('-')[0]
+        : rutSinPuntos.substring(0, rutSinPuntos.length - 1);
+
+      const temporaryPassword = rutAntesGuion.substring(Math.max(0, rutAntesGuion.length - 6));
 
       const newUser = await yogaAuth.createStudentWithEmail(
         studentEmail,
