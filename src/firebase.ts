@@ -4,7 +4,16 @@
  */
 
 import { initializeApp, getApp, getApps } from 'firebase/app';
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, User as FirebaseUser, signInAnonymously } from 'firebase/auth';
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+  User as FirebaseUser,
+  signInAnonymously,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 import { getFirestore, doc, getDoc, setDoc, getDocs, collection, updateDoc, deleteDoc, query, where, getDocFromServer } from 'firebase/firestore';
 import { UserProfile, UserRole, ClassPackage, YogaClass, Booking, BookingStatus, Expense } from './types';
 import { INITIAL_CLASSES } from './data/initialSchedule';
