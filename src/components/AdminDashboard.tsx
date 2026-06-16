@@ -1052,21 +1052,19 @@ export default function AdminDashboard() {
         return;
       }
 
-      studentId = 'st_u_' + Math.random().toString(36).substr(2, 9);
-      studentName = newStudentName;
-      studentEmail = newStudentEmail;
+      studentName = newStudentName.trim();
+      studentEmail = newStudentEmail.trim().toLowerCase();
 
-      // Register new user profile with RUT
-      const fakeNewUser: UserProfile = {
-        userId: studentId,
-        displayName: studentName,
-        email: studentEmail,
-        role: 'student',
-        createdAt: new Date().toISOString(),
-        rut: newStudentRut.trim()
-      };
-      
-      await yogaDatabase.saveUserProfile(fakeNewUser);
+      const temporaryPassword = cleanRut.replace('-', '').toLowerCase();
+
+      const newUser = await yogaAuth.createStudentWithEmail(
+        studentEmail,
+        temporaryPassword,
+        studentName,
+        newStudentRut.trim()
+      );
+
+      studentId = newUser.userId;
     } else {
       const match = users.find(u => u.userId === studentId);
       if (match) {
