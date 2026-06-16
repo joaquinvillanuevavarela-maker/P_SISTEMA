@@ -194,7 +194,7 @@
         return (
           <>
             <p className="text-[11px] text-emerald-950 bg-emerald-50/40 p-1.5 rounded border border-emerald-100/40 leading-normal">
-              Su contraseña son los <strong>últimos 4 dígitos</strong> de su RUT (antes del guión).
+              Su contraseña son los <strong>últimos 6 dígitos</strong> de su RUT (antes del guión).
             </p>
             <div className="text-[10px] text-emerald-850 space-y-0.5 font-mono italic mt-1">
               <p className="text-emerald-950 font-semibold">Demo Joaquín: <strong>joaquinvillanuevavarela@gmail.com</strong> &rarr; Clave: <strong>6220</strong></p>
