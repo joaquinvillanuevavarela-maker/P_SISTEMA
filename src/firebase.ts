@@ -522,6 +522,100 @@ let unifiedAuthCallbacks: ((user: UserProfile | null) => void)[] = [];
 export const yogaAuth = {
   isMockMode: () => isUsingMock(),
 
+  createStudentWithEmail: async (
+    email: string,
+    password: string,
+    displayName: string,
+    rut: string = ''
+  ): Promise<UserProfile> => {
+    if (isMock) {
+      const usersRaw = localStorage.getItem(LS_KEYS.USERS);
+      const users: Record<string, UserProfile> = usersRaw ? JSON.parse(usersRaw) : {};
+
+      const generatedId = 'user_' + Math.random().toString(36).substr(2, 9);
+
+      const newProfile: UserProfile = {
+        userId: generatedId,
+        email: email.trim().toLowerCase(),
+        displayName,
+        role: 'student',
+        createdAt: new Date().toISOString(),
+        rut,
+      };
+
+      users[generatedId] = newProfile;
+      localStorage.setItem(LS_KEYS.USERS, JSON.stringify(users));
+
+      return newProfile;
+    }
+
+    const credential = await createUserWithEmailAndPassword(
+      auth,
+      email.trim().toLowerCase(),
+      password
+    );
+
+    const newProfile: UserProfile = {
+      userId: credential.user.uid,
+      email: email.trim().toLowerCase(),
+      displayName,
+      role: 'student',
+      createdAt: new Date().toISOString(),
+      rut,
+    };
+
+    await setDoc(doc(db, 'users', credential.user.uid), newProfile);
+
+    return newProfile;
+  },
+
+  signInWithEmail: async (
+    email: string,
+    password: string
+  ): Promise<UserProfile> => {
+    if (isMock) {
+      const usersRaw = localStorage.getItem(LS_KEYS.USERS);
+      const users: Record<string, UserProfile> = usersRaw ? JSON.parse(usersRaw) : {};
+
+      const user = Object.values(users).find(
+        u => u.email === email.trim().toLowerCase()
+      );
+
+      if (!user) {
+        throw new Error('Usuario no encontrado');
+      }
+
+      activeUserProfile = user;
+      localStorage.setItem(LS_KEYS.ACTIVE_USER, JSON.stringify(user));
+      localStorage.setItem('simulated_active_user', JSON.stringify(user));
+      unifiedAuthCallbacks.forEach(cb => cb(user));
+
+      return user;
+    }
+
+    const credential = await signInWithEmailAndPassword(
+      auth,
+      email.trim().toLowerCase(),
+      password
+    );
+
+    const profileDoc = await getDoc(doc(db, 'users', credential.user.uid));
+
+    if (!profileDoc.exists()) {
+      throw new Error('El usuario existe en Authentication, pero no tiene perfil en Firestore');
+    }
+
+    const profile = profileDoc.data() as UserProfile;
+
+    activeUserProfile = profile;
+    unifiedAuthCallbacks.forEach(cb => cb(profile));
+
+    return profile;
+  },
+
+  // AQUÍ ABAJO DEBE SEGUIR EL CÓDIGO QUE YA TENÍAS
+  // onAuthStateChanged: ...
+
   // Subscribe to changes in authorization status
   onAuthStateChanged: (callback: (user: UserProfile | null) => void) => {
     unifiedAuthCallbacks.push(callback);
