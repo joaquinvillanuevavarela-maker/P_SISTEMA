@@ -179,7 +179,7 @@
         return (
           <>
             <p className="text-[11px] text-emerald-900/80 leading-normal">
-              Su contraseña son los <strong>últimos 4 dígitos</strong> de su RUT antes del guión.
+              Su contraseña son los <strong>últimos 6 dígitos</strong> de su RUT antes del guión.
             </p>
             <div className="text-[10px] text-emerald-850 space-y-1 font-mono italic max-h-[100px] overflow-y-auto pr-1">
               {dbInstructors.map((inst, idx) => (
