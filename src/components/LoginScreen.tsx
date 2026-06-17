@@ -492,7 +492,7 @@
                     <input
                       type={showPassword ? 'text' : 'password'}
                       required
-                      placeholder={selectedRole === 'admin' ? 'Contraseña del administrador' : 'Últimos 4 dígitos del RUT antes del guión'}
+                      placeholder={selectedRole === 'admin' ? 'Contraseña del administrador' : 'Últimos 6 dígitos del RUT antes del guión'}
                       value={loginPassword}
                       onChange={(e) => setLoginPassword(e.target.value)}
                       className="w-full pl-10 pr-10 py-3 bg-white/60 border border-slate-200 rounded-xl text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all shadow-inner"
