@@ -576,23 +576,27 @@ export const yogaAuth = {
     if (isMock) {
       const usersRaw = localStorage.getItem(LS_KEYS.USERS);
       const users: Record<string, UserProfile> = usersRaw ? JSON.parse(usersRaw) : {};
-
+  
       const user = Object.values(users).find(
         u => u.email === email.trim().toLowerCase()
       );
-
+  
       if (!user) {
         throw new Error('Usuario no encontrado');
       }
-
+  
       activeUserProfile = user;
       localStorage.setItem(LS_KEYS.ACTIVE_USER, JSON.stringify(user));
       localStorage.setItem('simulated_active_user', JSON.stringify(user));
       unifiedAuthCallbacks.forEach(cb => cb(user));
-
+  
       return user;
     }
-
+  
+    localStorage.removeItem('simulated_active_user');
+    localStorage.removeItem(LS_KEYS.ACTIVE_USER);
+    activeUserProfile = null;
+  
     const credential = await signInWithEmailAndPassword(
       auth,
       email.trim().toLowerCase(),
