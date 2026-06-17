@@ -37,10 +37,10 @@
     const [showPassword, setShowPassword] = useState(false);
   
     const [dbInstructors, setDbInstructors] = useState<{ displayName: string; email: string; passwordHint: string }[]>([
-      { displayName: 'Sofía', email: 'sofia@yoga.com', passwordHint: '3748' },
-      { displayName: 'Matías', email: 'matias@yoga.com', passwordHint: '3849' },
-      { displayName: 'Camila', email: 'camila@yoga.com', passwordHint: '3950' },
-      { displayName: 'Lucas', email: 'lucas@yoga.com', passwordHint: '4061' },
+      { displayName: 'Sofía', email: 'sofia@yoga.com', passwordHint: '345678' },
+      { displayName: 'Matías', email: 'matias@yoga.com', passwordHint: '345678' },
+      { displayName: 'Camila', email: 'camila@yoga.com', passwordHint: '345678' },
+      { displayName: 'Lucas', email: 'lucas@yoga.com', passwordHint: '345678' },
     ]);
   
     React.useEffect(() => {
