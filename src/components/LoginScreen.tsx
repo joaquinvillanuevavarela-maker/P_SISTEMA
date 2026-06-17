@@ -18,10 +18,10 @@
     if (clean.includes('-')) {
       const parts = clean.split('-');
       const beforeDash = parts[0];
-      return beforeDash.substring(Math.max(0, beforeDash.length - 4));
+      return beforeDash.substring(Math.max(0, beforeDash.length - 6));
     } else {
       const beforeLast = clean.substring(0, clean.length - 1);
-      return beforeLast.substring(Math.max(0, beforeLast.length - 4));
+      return beforeLast.substring(Math.max(0, beforeLast.length - 6));
     }
   }
   
