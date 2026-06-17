@@ -77,44 +77,42 @@
   
     const handleCredentialsLogin = async (e: React.FormEvent) => {
       e.preventDefault();
+    
       if (!loginEmail || !loginPassword) {
         setError('Por favor ingresa tu correo electrónico y contraseña.');
         return;
       }
+    
       setLoading(true);
       setError(null);
+    
       try {
-        // 1. Get all users
-        const allUsers = await yogaDatabase.getAllUsers();
-        
-        // 2. Find matching profile (case-insensitive)
-        const matchedUser = allUsers.find(
-          (u) => u.email.trim().toLowerCase() === loginEmail.trim().toLowerCase()
-        );
-  
-        if (!matchedUser) {
-          setError(
-            'El correo electrónico no está registrado. Solicita a Valentina (Administradora) que registre tu correo en el sistema.'
-          );
-          setLoading(false);
-          return;
-        }
-  
-        // 3. Force alignment with selected initial login role to prevent mistakes
-        if (selectedRole && matchedUser.role !== selectedRole) {
-          const roleLabelSelected = selectedRole === 'admin' ? 'Administrador/a' : selectedRole === 'instructor' ? 'Profesor/a' : 'Alumno/a';
-          const roleLabelActual = matchedUser.role === 'admin' ? 'Administrador/a' : matchedUser.role === 'instructor' ? 'Profesor/a' : 'Alumno/a';
+        const loggedUser = await yogaAuth.signInWithEmail(loginEmail, loginPassword);
+    
+        if (selectedRole && loggedUser.role !== selectedRole) {
+          const roleLabelSelected =
+            selectedRole === 'admin'
+              ? 'Administrador/a'
+              : selectedRole === 'instructor'
+                ? 'Profesor/a'
+                : 'Alumno/a';
+    
+          const roleLabelActual =
+            loggedUser.role === 'admin'
+              ? 'Administrador/a'
+              : loggedUser.role === 'instructor'
+                ? 'Profesor/a'
+                : 'Alumno/a';
+    
           setError(
             `Este correo pertenece a un perfil de "${roleLabelActual}", pero seleccionaste ingresar como "${roleLabelSelected}". Por favor regresa y selecciona tu perfil correcto.`
           );
-          setLoading(false);
+    
+          await yogaAuth.signOut();
           return;
         }
-  
-        // 4. Log in with Firebase Authentication
-        await yogaAuth.signInWithEmail(loginEmail, loginPassword);
-        onLoginSuccess();
     
+        onLoginSuccess();
       } catch (err: any) {
         console.error(err);
         setError(err.message || 'Ocurrió un error al verificar tus credenciales. Por favor intenta de nuevo.');
