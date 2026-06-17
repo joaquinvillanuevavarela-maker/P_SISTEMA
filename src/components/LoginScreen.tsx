@@ -481,7 +481,7 @@
                     </label>
                     {selectedRole !== 'admin' && (
                       <span className="text-[10px] text-emerald-800 font-bold bg-emerald-50/70 px-2 py-0.5 rounded border border-emerald-100">
-                        4 dígitos de tu RUT
+                        6 dígitos de tu RUT
                       </span>
                     )}
                   </div>
