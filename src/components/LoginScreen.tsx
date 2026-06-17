@@ -171,7 +171,7 @@
               Ingreso administrativo para Valentina (RUT: <strong>22222222-2</strong>)
             </p>
             <p className="text-[10px] text-emerald-850 font-mono italic">
-              Email: <strong>valentina@gmail.com</strong> &rarr; Clave: <strong>2222</strong>
+              Email: <strong>valentina@gmail.com</strong> &rarr; Clave: <strong>222222</strong>
             </p>
           </>
         );
