@@ -197,7 +197,7 @@
               Su contraseña son los <strong>últimos 6 dígitos</strong> de su RUT (antes del guión).
             </p>
             <div className="text-[10px] text-emerald-850 space-y-0.5 font-mono italic mt-1">
-              <p className="text-emerald-950 font-semibold">Demo Joaquín: <strong>joaquinvillanuevavarela@gmail.com</strong> &rarr; Clave: <strong>6220</strong></p>
+              <p className="text-emerald-950 font-semibold">Demo Joaquín: <strong>joaquinvillanuevavarela@gmail.com</strong> &rarr; Clave: <strong>286220</strong></p>
               <p>Demo Lucía: <strong>lucia@gmail.com</strong> &rarr; Contraseña: <strong>5678</strong></p>
             </div>
           </>
