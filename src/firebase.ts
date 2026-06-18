@@ -498,7 +498,9 @@ const seedLocalStorageIfNeeded = () => {
 };
 
 // Seed instantly on load of this script
-seedLocalStorageIfNeeded();
+if (isMock) {
+  seedLocalStorageIfNeeded();
+}
 
 // Unified active user state (holds either the Firestore logged-in profile or a simulated profile)
 let activeUserProfile: UserProfile | null = null;
