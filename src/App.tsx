@@ -150,7 +150,11 @@ export default function App() {
           <div className="flex items-center gap-3">
             <div className="text-right hidden md:block">
               <span className="text-[10px] uppercase font-extrabold text-emerald-800 tracking-wider bg-white/50 border border-white/40 px-2.5 py-0.5 rounded-full">
-                {currentUser.role === 'admin' ? 'Valentina (Admin)' : 'Estudiante'}
+                {currentUser.role === 'admin'
+                  ? 'Valentina (Admin)'
+                  : currentUser.role === 'instructor'
+                    ? 'Profesor/a'
+                    : 'Estudiante'}
               </span>
               <p className="font-semibold text-slate-700 text-xs mt-0.5">{currentUser.displayName}</p>
             </div>
